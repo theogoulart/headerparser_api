@@ -6,9 +6,9 @@ app.get('', function(req, res){
     
     var result = {}
     
-    result.ipaddress    = "ipaddress"
-    result.language     = "language"
-    result.software     = "software"
+    result.ipaddress    = req.headers['x-forwarded-for']
+    result.language     = req.headers['accept-language'].substring(0,5)
+    result.software     = req.headers['user-agent'].substring(req.headers['user-agent'].indexOf('(')+1,req.headers['user-agent'].indexOf(')'))
     
     res.send(JSON.stringify(result))
 })
